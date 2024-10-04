@@ -37,9 +37,10 @@ app.put("/:id", (req, res) => {
 
     const  body = req.body;
 
+   //homework:todo
     //suruma teo data xa ki xaina check garne
 
-    //teodata xain vane kei nagarni , xaina vanne msg pathaun
+    //teodata xain vane xaina vanera msg pathaune
     
 
     //xa vane teslai update gardine
@@ -47,7 +48,7 @@ app.put("/:id", (req, res) => {
 })
 
 app.delete("/:id", (req, res) => {
-
+    //homework:todo
     //file xa ki xaina check agrne , file xaina vane, xaina vanera message response ma pathaune
 
 

@@ -1,63 +1,74 @@
+const express = require("express");
+const fs = require("fs");
 
-const express = require('express');
+//function calling here
 const app = express();
 
-//middleware 
+//req body json ma aauxa .aslai yaaad garnus
+app.use(express.json());
 
-app.use(express.json())
-
-
-//get vaneko http method
-
-//get ,post ,put ,path,delete  //htttp method
+const file = "body.txt";
 
 
+app.get("/", (req, res) => {
+  fs.readFile(file, (err, data) => {
+    if (err) return console.log(err);
+    res.json({
+        data:JSON.parse(data)
+    });
+  });
+});
+
+//post
+
+app.post("/", (req, res) => {
+  const body = req.body;
+  
+  fs.appendFile(file, JSON.stringify(body), (err) => {
+    if (err) return console.log(err);
+    console.log("Create file with data");
+  });
+});
 
 
 
+app.put("/:id", (req, res) => {
+    const {id} = req.params;
 
-app.get("/user", (req, res) => {
+    const  body = req.body;
 
-   res.json(
-    {
-    data: objects
-   }
-)
+    //suruma teo data xa ki xaina check garne
+
+    //teodata xain vane kei nagarni , xaina vanne msg pathaun
+    
+
+    //xa vane teslai update gardine
+
 })
 
-app.post("/user", (req, res) => {
-    let {name, email} = req.body;
-    name  = "padam";
-    console.log(name);
+app.delete("/:id", (req, res) => {
 
-    return res.json({
-        message: "user created Sucessfully",
-        data:  name + " " + email
+    //file xa ki xaina check agrne , file xaina vane, xaina vanera message response ma pathaune
+
+
+    //file delete garne
+    fs.unlink(file, (err)=> {
+        if(err) return console.log(err);
+        console.log("File deleted successfully");
+        res.status(200).json({
+            message: "File deleted successfully"
+        })
+
     })
- })
 
-
-
- const user  = [
-    {id: 1, name: "padam", email: "padam@gmail.com"},
-    {id: 2, name: "prakash", email: "prakash@gmail.com"},
-    {id: 3, name: "rahul", email: "rahul@gmail.com"}
-
-]
- app.put("/user/:id", (req,res)=> {
-    console.log(req)
-    // const {id} = req.params
-    // console.log(id);
-   
- })
- 
-
-
-
-app.listen(3000, ()=> {
-    console.log("Server is running on port 3000")
 })
 
 
 
 
+const port = 3000;
+
+
+app.listen(port, () => {
+  console.log(`Server is up and running on port ${port}`);
+});
